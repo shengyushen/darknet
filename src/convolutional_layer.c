@@ -194,6 +194,11 @@ convolutional_layer make_convolutional_layer(int batch, int h, int w, int c, int
 
     l.weights = calloc(c/groups*n*size*size, sizeof(float));
     l.weight_updates = calloc(c/groups*n*size*size, sizeof(float));
+		printf("c %d\n",c);
+		printf("groups %d\n",groups);
+		printf("n %d\n",n);
+		printf("size %d\n",size);
+		printf("l.weights and l.weight_updates size are all %d\n",c/groups*n*size*size);
 
     l.biases = calloc(n, sizeof(float));
     l.bias_updates = calloc(n, sizeof(float));
@@ -217,6 +222,9 @@ convolutional_layer make_convolutional_layer(int batch, int h, int w, int c, int
 
     l.output = calloc(l.batch*l.outputs, sizeof(float));
     l.delta  = calloc(l.batch*l.outputs, sizeof(float));
+		printf("l.batch %d\n",l.batch);
+		printf("l.outputs %d\n",l.outputs);
+		printf("l.delta and l.output size are all %d\n",l.batch*l.outputs);
 
     l.forward = forward_convolutional_layer;
     l.backward = backward_convolutional_layer;
@@ -224,11 +232,13 @@ convolutional_layer make_convolutional_layer(int batch, int h, int w, int c, int
     if(binary){
         l.binary_weights = calloc(l.nweights, sizeof(float));
         l.cweights = calloc(l.nweights, sizeof(char));
+				printf("l.binary_weights and l.cweights size are all %d\n",l.nweights);
         l.scales = calloc(n, sizeof(float));
     }
     if(xnor){
         l.binary_weights = calloc(l.nweights, sizeof(float));
         l.binary_input = calloc(l.inputs*l.batch, sizeof(float));
+				printf("l.binary_input size is %d\n",l.inputs*l.batch);
     }
 
     if(batch_normalize){
@@ -248,6 +258,7 @@ convolutional_layer make_convolutional_layer(int batch, int h, int w, int c, int
         l.rolling_variance = calloc(n, sizeof(float));
         l.x = calloc(l.batch*l.outputs, sizeof(float));
         l.x_norm = calloc(l.batch*l.outputs, sizeof(float));
+				printf("l.x and l.x_norm size are all %d\n",l.batch*l.outputs);
     }
     if(adam){
         l.m = calloc(l.nweights, sizeof(float));
@@ -369,6 +380,8 @@ void test_convolutional_layer()
 
 void resize_convolutional_layer(convolutional_layer *l, int w, int h)
 {
+		printf("resize_convolutional_layer w %d\n",w);
+		printf("resize_convolutional_layer h %d\n",h);
     l->w = w;
     l->h = h;
     int out_w = convolutional_out_width(*l);
@@ -379,9 +392,15 @@ void resize_convolutional_layer(convolutional_layer *l, int w, int h)
 
     l->outputs = l->out_h * l->out_w * l->out_c;
     l->inputs = l->w * l->h * l->c;
-
+		printf("resize_convolutional_layer\n");
+		printf("l->out_h %d\n",l->out_h);
+		printf("l->out_w %d\n",l->out_w);
+		printf("l->h %d\n",l->h);
+		printf("l->w %d\n",l->w);
     l->output = realloc(l->output, l->batch*l->outputs*sizeof(float));
     l->delta  = realloc(l->delta,  l->batch*l->outputs*sizeof(float));
+		printf("resize_convolutional_layer l->output %d\n",l->batch*l->outputs);
+		printf("resize_convolutional_layer l->delta %d\n",l->batch*l->outputs);
     if(l->batch_normalize){
         l->x = realloc(l->x, l->batch*l->outputs*sizeof(float));
         l->x_norm  = realloc(l->x_norm, l->batch*l->outputs*sizeof(float));

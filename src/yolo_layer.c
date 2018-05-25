@@ -28,6 +28,7 @@ layer make_yolo_layer(int batch, int w, int h, int n, int total, int *mask, int 
     l.classes = classes;
     l.cost = calloc(1, sizeof(float));
     l.biases = calloc(total*2, sizeof(float));
+		printf("yolo l.biases size is %d\n",total*2);
     if(mask) l.mask = mask;
     else{
         l.mask = calloc(n, sizeof(int));
@@ -36,11 +37,18 @@ layer make_yolo_layer(int batch, int w, int h, int n, int total, int *mask, int 
         }
     }
     l.bias_updates = calloc(n*2, sizeof(float));
+		printf("yolo l.bias_updates size is %d\n",n*2);
     l.outputs = h*w*n*(classes + 4 + 1);
+		printf("yolo h %d\n",h);
+		printf("yolo w %d\n",w);
+		printf("yolo n %d\n",n);
+		printf("yolo classes %d\n",classes);
+		printf("yolo l.outputs %d\n",l.outputs);
     l.inputs = l.outputs;
     l.truths = 90*(4 + 1);
     l.delta = calloc(batch*l.outputs, sizeof(float));
     l.output = calloc(batch*l.outputs, sizeof(float));
+		printf("yolo l.delta and l.output size are all %d\n",batch*l.outputs);
     for(i = 0; i < total*2; ++i){
         l.biases[i] = .5;
     }
@@ -62,6 +70,8 @@ layer make_yolo_layer(int batch, int w, int h, int n, int total, int *mask, int 
 
 void resize_yolo_layer(layer *l, int w, int h)
 {
+		printf("resize_yolo_layer w %d\n",w);
+		printf("resize_yolo_layer h %d\n",h);
     l->w = w;
     l->h = h;
 
@@ -70,6 +80,8 @@ void resize_yolo_layer(layer *l, int w, int h)
 
     l->output = realloc(l->output, l->batch*l->outputs*sizeof(float));
     l->delta = realloc(l->delta, l->batch*l->outputs*sizeof(float));
+		printf("resize_yolo_layer l->output %d\n",l->batch*l->outputs);
+		printf("resize_yolo_layer l->delta %d\n",l->batch*l->outputs);
 
 #ifdef GPU
     cuda_free(l->delta_gpu);

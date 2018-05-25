@@ -5,11 +5,18 @@ static int coco_ids[] = {1,2,3,4,5,6,7,8,9,10,11,13,14,15,16,17,18,19,20,21,22,2
 
 void train_detector(char *datacfg, char *cfgfile, char *weightfile, int *gpus, int ngpus, int clear)
 {
+		//there are two config file,
+		//datacfg : to find out where is the train dir
+		//cfgfile : to define the network 
+		printf("read_data_cfg %s\n",datacfg);
+		//this is the data file config
     list *options = read_data_cfg(datacfg);
     char *train_images = option_find_str(options, "train", "data/train.list");
     char *backup_directory = option_find_str(options, "backup", "/backup/");
 
+		//memory 4m
     srand(time(0));
+		//only the file name
     char *base = basecfg(cfgfile);
     printf("%s\n", base);
     float avg_loss = -1;
@@ -18,26 +25,37 @@ void train_detector(char *datacfg, char *cfgfile, char *weightfile, int *gpus, i
     srand(time(0));
     int seed = rand();
     int i;
+		//memory 4m
+		printf("ngpus %d\n",ngpus);
     for(i = 0; i < ngpus; ++i){
         srand(seed);
 #ifdef GPU
         cuda_set_device(gpus[i]);
 #endif
+				//the network is the same
         nets[i] = load_network(cfgfile, weightfile, clear);
         nets[i]->learning_rate *= ngpus;
     }
+		//memory 6G
     srand(time(0));
     network *net = nets[0];
 
     int imgs = net->batch * net->subdivisions * ngpus;
+		printf("ngpus %d\n",ngpus);
+		printf("batch %d\n",net->batch);
+		printf("subdivisions %d\n",net->subdivisions);
+		printf("imgs %d\n",imgs);
     printf("Learning Rate: %g, Momentum: %g, Decay: %g\n", net->learning_rate, net->momentum, net->decay);
     data train, buffer;
 
     layer l = net->layers[net->n - 1];
+		printf("net n -1 %d\n", net->n -1);
 
     int classes = l.classes;
+		printf("classes %d\n",classes);
     float jitter = l.jitter;
 
+		printf("train_images %s\n",train_images);
     list *plist = get_paths(train_images);
     //int N = plist->size;
     char **paths = (char **)list_to_array(plist);
@@ -50,16 +68,26 @@ void train_detector(char *datacfg, char *cfgfile, char *weightfile, int *gpus, i
     args.classes = classes;
     args.jitter = jitter;
     args.num_boxes = l.max_boxes;
+		printf("num_boxes %d\n",args.num_boxes);
     args.d = &buffer;
     args.type = DETECTION_DATA;
     //args.type = INSTANCE_DATA;
     args.threads = 64;
 
     pthread_t load_thread = load_data(args);
+		pthread_join(load_thread, 0);
+/*		fflush(stdout);
+		fflush(stderr);
+		return;*/
     double time;
     int count = 0;
     //while(i*imgs < N*120){
+    //each batch is batch*subdivisions, while the batch is the batch in cfg file divided by subdivisions
+    //so the batch is the batch in cfg
+    printf("train_detector loop1 net->max_batches = %d\n",net->max_batches);
+		//memory 6G
     while(get_current_batch(net) < net->max_batches){
+				printf("get_current_batch %d\n",(int)(get_current_batch(net)));
         if(l.random && count++%10 == 0){
             printf("Resizing\n");
             int dim = (rand() % 10 + 10) * 32;

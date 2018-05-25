@@ -331,6 +331,7 @@ layer parse_yolo(list *options, size_params params)
         }
         for(i = 0; i < n; ++i){
             float bias = atof(a);
+						//printf("bias %f\n",bias);
             l.biases[i] = bias;
             a = strchr(a, ',')+1;
         }
@@ -643,15 +644,21 @@ learning_rate_policy get_policy(char *s)
 void parse_net_options(list *options, network *net)
 {
     net->batch = option_find_int(options, "batch",1);
+		printf("batch from file is %d\n",net->batch);
     net->learning_rate = option_find_float(options, "learning_rate", .001);
     net->momentum = option_find_float(options, "momentum", .9);
     net->decay = option_find_float(options, "decay", .0001);
     int subdivs = option_find_int(options, "subdivisions",1);
+		printf("subdiv from file is %d\n",subdivs);
     net->time_steps = option_find_int_quiet(options, "time_steps",1);
     net->notruth = option_find_int_quiet(options, "notruth",0);
     net->batch /= subdivs;
+		printf("batch div by subdiv is %d\n",net->batch);
     net->batch *= net->time_steps;
+		printf("batch mul by time_steps is %d\n",net->batch);
+
     net->subdivisions = subdivs;
+		printf("final subdivisions is %d\n",net->subdivisions);
     net->random = option_find_int_quiet(options, "random", 0);
 
     net->adam = option_find_int_quiet(options, "adam", 0);
@@ -729,16 +736,21 @@ int is_network(section *s)
 
 network *parse_network_cfg(char *filename)
 {
+		printf("parse_network_cfg filename %s\n",filename);
     list *sections = read_cfg(filename);
+		//memory 4m
     node *n = sections->front;
     if(!n) error("Config file has no sections");
+		//only construct the struct, not fill in anything
     network *net = make_network(sections->size - 1);
+		//memory 4m
     net->gpu_index = gpu_index;
     size_params params;
 
     section *s = (section *)n->val;
     list *options = s->options;
     if(!is_network(s)) error("First section must be [net] or [network]");
+		//real place to read out the net option in network config file
     parse_net_options(options, net);
 
     params.h = net->h;
@@ -754,6 +766,8 @@ network *parse_network_cfg(char *filename)
     int count = 0;
     free_section(s);
     fprintf(stderr, "layer     filters    size              input                output\n");
+		//this is the place for parsing network conv or fc
+		//memory 4m
     while(n){
         params.index = count;
         fprintf(stderr, "%5d ", count);
@@ -845,6 +859,7 @@ network *parse_network_cfg(char *filename)
             params.inputs = l.outputs;
         }
     }
+		//memory 6G
     free_list(sections);
     layer out = get_network_output_layer(net);
     net->outputs = out.outputs;
@@ -1291,6 +1306,7 @@ void load_weights_upto(network *net, char *filename, int start, int cutoff)
 
 void load_weights(network *net, char *filename)
 {
+		printf("load_weights start %s\n",filename);
     load_weights_upto(net, filename, 0, net->n);
 }
 

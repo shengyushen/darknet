@@ -52,11 +52,18 @@ load_args get_base_args(network *net)
 
 network *load_network(char *cfg, char *weights, int clear)
 {
+		printf("load_network\n");
+		printf("cfg : %s\n",cfg);
+		printf("weight : %s\n",weights);
+		//memory 4m
     network *net = parse_network_cfg(cfg);
+		//memory 6G
+		printf("parse_network_cfg finished\n");
     if(weights && weights[0] != 0){
         load_weights(net, weights);
     }
     if(clear) (*net->seen) = 0;
+		printf("load_network finished\n");
     return net;
 }
 
@@ -195,10 +202,16 @@ void forward_network(network *netp)
 #endif
     network net = *netp;
     int i;
+//layer by layer 
+		printf("net.n %d\n",net.n);
     for(i = 0; i < net.n; ++i){
+				printf("layer by layer i=%d\n",i);
         net.index = i;
         layer l = net.layers[i];
         if(l.delta){
+						printf("filling x=%d y=%d\n",l.outputs,l.batch);
+						//l.outputs * l.batch is the size of the buffer to be filled
+						//delta is the buffer
             fill_cpu(l.outputs * l.batch, 0, l.delta, 1);
         }
         l.forward(l, net);
@@ -289,6 +302,8 @@ void backward_network(network *netp)
 float train_network_datum(network *net)
 {
     *net->seen += net->batch;
+		printf("train_network_datum net->batch %d\n",net->batch);
+		printf("train_network_datum net->seen %d\n",(int)(*(net->seen)));
     net->train = 1;
     forward_network(net);
     backward_network(net);
@@ -313,14 +328,23 @@ float train_network_sgd(network *net, data d, int n)
 
 float train_network(network *net, data d)
 {
+		printf("train_network d.X.rows %d\n",d.X.rows);
+		printf("train_network d.X.cols %d\n",d.X.cols);
+		printf("train_network d.Y.rows %d\n",d.y.rows);
+		printf("train_network d.Y.cols %d\n",d.y.cols);
+		printf("train_network d.w %d\n",d.w);
+		printf("train_network d.h %d\n",d.h);
     assert(d.X.rows % net->batch == 0);
     int batch = net->batch;
     int n = d.X.rows / batch;
 
     int i;
     float sum = 0;
+		printf("train_network n=%d batch=%d\n",n,batch);
     for(i = 0; i < n; ++i){
+				printf("train_network i=%d\n",i);
         get_next_batch(d, batch, i*batch, net->input, net->truth);
+				printf("get_next_batch finished\n");
         float err = train_network_datum(net);
         sum += err;
     }
@@ -357,6 +381,7 @@ void set_batch_network(network *net, int b)
 
 int resize_network(network *net, int w, int h)
 {
+		printf("resize_network w=%d h=%d\n",w,h);
 #ifdef GPU
     cuda_set_device(net->gpu_index);
     cuda_free(net->workspace);
@@ -1098,6 +1123,7 @@ float train_networks(network **nets, int n, data d, int interval)
     float *errors = (float *) calloc(n, sizeof(float));
 
     float sum = 0;
+//every GPU have one thread
     for(i = 0; i < n; ++i){
         data p = get_data_part(d, i, n);
         threads[i] = train_network_in_thread(nets[i], p, errors + i);

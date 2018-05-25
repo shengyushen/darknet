@@ -1,0 +1,686 @@
+read_data_cfg cfg/coco.data
+yolov3
+ngpus 1
+load_network
+cfg : cfg/yolov3.cfg_64_16
+weight : darknet53.conv.74
+parse_network_cfg filename cfg/yolov3.cfg_64_16
+batch from file is 64
+subdiv from file is 16
+batch div by subdiv is 4
+batch mul by time_steps is 4
+final subdivisions is 16
+c 3
+groups 1
+n 32
+size 3
+l.weights and l.weight_updates size are all 864
+l.batch 4
+l.outputs 5537792
+l.delta and l.output size are all 22151168
+l.x and l.x_norm size are all 22151168
+c 32
+groups 1
+n 64
+size 3
+l.weights and l.weight_updates size are all 18432
+l.batch 4
+l.outputs 2768896
+l.delta and l.output size are all 11075584
+l.x and l.x_norm size are all 11075584
+c 64
+groups 1
+n 32
+size 1
+l.weights and l.weight_updates size are all 2048
+l.batch 4
+l.outputs 1384448
+l.delta and l.output size are all 5537792
+l.x and l.x_norm size are all 5537792
+c 32
+groups 1
+n 64
+size 3
+l.weights and l.weight_updates size are all 18432
+l.batch 4
+l.outputs 2768896
+l.delta and l.output size are all 11075584
+l.x and l.x_norm size are all 11075584
+c 64
+groups 1
+n 128
+size 3
+l.weights and l.weight_updates size are all 73728
+l.batch 4
+l.outputs 1384448
+l.delta and l.output size are all 5537792
+l.x and l.x_norm size are all 5537792
+c 128
+groups 1
+n 64
+size 1
+l.weights and l.weight_updates size are all 8192
+l.batch 4
+l.outputs 692224
+l.delta and l.output size are all 2768896
+l.x and l.x_norm size are all 2768896
+c 64
+groups 1
+n 128
+size 3
+l.weights and l.weight_updates size are all 73728
+l.batch 4
+l.outputs 1384448
+l.delta and l.output size are all 5537792
+l.x and l.x_norm size are all 5537792
+c 128
+groups 1
+n 64
+size 1
+l.weights and l.weight_updates size are all 8192
+l.batch 4
+l.outputs 692224
+l.delta and l.output size are all 2768896
+l.x and l.x_norm size are all 2768896
+c 64
+groups 1
+n 128
+size 3
+l.weights and l.weight_updates size are all 73728
+l.batch 4
+l.outputs 1384448
+l.delta and l.output size are all 5537792
+l.x and l.x_norm size are all 5537792
+c 128
+groups 1
+n 256
+size 3
+l.weights and l.weight_updates size are all 294912
+l.batch 4
+l.outputs 692224
+l.delta and l.output size are all 2768896
+l.x and l.x_norm size are all 2768896
+c 256
+groups 1
+n 128
+size 1
+l.weights and l.weight_updates size are all 32768
+l.batch 4
+l.outputs 346112
+l.delta and l.output size are all 1384448
+l.x and l.x_norm size are all 1384448
+c 128
+groups 1
+n 256
+size 3
+l.weights and l.weight_updates size are all 294912
+l.batch 4
+l.outputs 692224
+l.delta and l.output size are all 2768896
+l.x and l.x_norm size are all 2768896
+c 256
+groups 1
+n 128
+size 1
+l.weights and l.weight_updates size are all 32768
+l.batch 4
+l.outputs 346112
+l.delta and l.output size are all 1384448
+l.x and l.x_norm size are all 1384448
+c 128
+groups 1
+n 256
+size 3
+l.weights and l.weight_updates size are all 294912
+l.batch 4
+l.outputs 692224
+l.delta and l.output size are all 2768896
+l.x and l.x_norm size are all 2768896
+c 256
+groups 1
+n 128
+size 1
+l.weights and l.weight_updates size are all 32768
+l.batch 4
+l.outputs 346112
+l.delta and l.output size are all 1384448
+l.x and l.x_norm size are all 1384448
+c 128
+groups 1
+n 256
+size 3
+l.weights and l.weight_updates size are all 294912
+l.batch 4
+l.outputs 692224
+l.delta and l.output size are all 2768896
+l.x and l.x_norm size are all 2768896
+c 256
+groups 1
+n 128
+size 1
+l.weights and l.weight_updates size are all 32768
+l.batch 4
+l.outputs 346112
+l.delta and l.output size are all 1384448
+l.x and l.x_norm size are all 1384448
+c 128
+groups 1
+n 256
+size 3
+l.weights and l.weight_updates size are all 294912
+l.batch 4
+l.outputs 692224
+l.delta and l.output size are all 2768896
+l.x and l.x_norm size are all 2768896
+c 256
+groups 1
+n 128
+size 1
+l.weights and l.weight_updates size are all 32768
+l.batch 4
+l.outputs 346112
+l.delta and l.output size are all 1384448
+l.x and l.x_norm size are all 1384448
+c 128
+groups 1
+n 256
+size 3
+l.weights and l.weight_updates size are all 294912
+l.batch 4
+l.outputs 692224
+l.delta and l.output size are all 2768896
+l.x and l.x_norm size are all 2768896
+c 256
+groups 1
+n 128
+size 1
+l.weights and l.weight_updates size are all 32768
+l.batch 4
+l.outputs 346112
+l.delta and l.output size are all 1384448
+l.x and l.x_norm size are all 1384448
+c 128
+groups 1
+n 256
+size 3
+l.weights and l.weight_updates size are all 294912
+l.batch 4
+l.outputs 692224
+l.delta and l.output size are all 2768896
+l.x and l.x_norm size are all 2768896
+c 256
+groups 1
+n 128
+size 1
+l.weights and l.weight_updates size are all 32768
+l.batch 4
+l.outputs 346112
+l.delta and l.output size are all 1384448
+l.x and l.x_norm size are all 1384448
+c 128
+groups 1
+n 256
+size 3
+l.weights and l.weight_updates size are all 294912
+l.batch 4
+l.outputs 692224
+l.delta and l.output size are all 2768896
+l.x and l.x_norm size are all 2768896
+c 256
+groups 1
+n 128
+size 1
+l.weights and l.weight_updates size are all 32768
+l.batch 4
+l.outputs 346112
+l.delta and l.output size are all 1384448
+l.x and l.x_norm size are all 1384448
+c 128
+groups 1
+n 256
+size 3
+l.weights and l.weight_updates size are all 294912
+l.batch 4
+l.outputs 692224
+l.delta and l.output size are all 2768896
+l.x and l.x_norm size are all 2768896
+c 256
+groups 1
+n 512
+size 3
+l.weights and l.weight_updates size are all 1179648
+l.batch 4
+l.outputs 346112
+l.delta and l.output size are all 1384448
+l.x and l.x_norm size are all 1384448
+c 512
+groups 1
+n 256
+size 1
+l.weights and l.weight_updates size are all 131072
+l.batch 4
+l.outputs 173056
+l.delta and l.output size are all 692224
+l.x and l.x_norm size are all 692224
+c 256
+groups 1
+n 512
+size 3
+l.weights and l.weight_updates size are all 1179648
+l.batch 4
+l.outputs 346112
+l.delta and l.output size are all 1384448
+l.x and l.x_norm size are all 1384448
+c 512
+groups 1
+n 256
+size 1
+l.weights and l.weight_updates size are all 131072
+l.batch 4
+l.outputs 173056
+l.delta and l.output size are all 692224
+l.x and l.x_norm size are all 692224
+c 256
+groups 1
+n 512
+size 3
+l.weights and l.weight_updates size are all 1179648
+l.batch 4
+l.outputs 346112
+l.delta and l.output size are all 1384448
+l.x and l.x_norm size are all 1384448
+c 512
+groups 1
+n 256
+size 1
+l.weights and l.weight_updates size are all 131072
+l.batch 4
+l.outputs 173056
+l.delta and l.output size are all 692224
+l.x and l.x_norm size are all 692224
+c 256
+groups 1
+n 512
+size 3
+l.weights and l.weight_updates size are all 1179648
+l.batch 4
+l.outputs 346112
+l.delta and l.output size are all 1384448
+l.x and l.x_norm size are all 1384448
+c 512
+groups 1
+n 256
+size 1
+l.weights and l.weight_updates size are all 131072
+l.batch 4
+l.outputs 173056
+l.delta and l.output size are all 692224
+l.x and l.x_norm size are all 692224
+c 256
+groups 1
+n 512
+size 3
+l.weights and l.weight_updates size are all 1179648
+l.batch 4
+l.outputs 346112
+l.delta and l.output size are all 1384448
+l.x and l.x_norm size are all 1384448
+c 512
+groups 1
+n 256
+size 1
+l.weights and l.weight_updates size are all 131072
+l.batch 4
+l.outputs 173056
+l.delta and l.output size are all 692224
+l.x and l.x_norm size are all 692224
+c 256
+groups 1
+n 512
+size 3
+l.weights and l.weight_updates size are all 1179648
+l.batch 4
+l.outputs 346112
+l.delta and l.output size are all 1384448
+l.x and l.x_norm size are all 1384448
+c 512
+groups 1
+n 256
+size 1
+l.weights and l.weight_updates size are all 131072
+l.batch 4
+l.outputs 173056
+l.delta and l.output size are all 692224
+l.x and l.x_norm size are all 692224
+c 256
+groups 1
+n 512
+size 3
+l.weights and l.weight_updates size are all 1179648
+l.batch 4
+l.outputs 346112
+l.delta and l.output size are all 1384448
+l.x and l.x_norm size are all 1384448
+c 512
+groups 1
+n 256
+size 1
+l.weights and l.weight_updates size are all 131072
+l.batch 4
+l.outputs 173056
+l.delta and l.output size are all 692224
+l.x and l.x_norm size are all 692224
+c 256
+groups 1
+n 512
+size 3
+l.weights and l.weight_updates size are all 1179648
+l.batch 4
+l.outputs 346112
+l.delta and l.output size are all 1384448
+l.x and l.x_norm size are all 1384448
+c 512
+groups 1
+n 256
+size 1
+l.weights and l.weight_updates size are all 131072
+l.batch 4
+l.outputs 173056
+l.delta and l.output size are all 692224
+l.x and l.x_norm size are all 692224
+c 256
+groups 1
+n 512
+size 3
+l.weights and l.weight_updates size are all 1179648
+l.batch 4
+l.outputs 346112
+l.delta and l.output size are all 1384448
+l.x and l.x_norm size are all 1384448
+c 512
+groups 1
+n 1024
+size 3
+l.weights and l.weight_updates size are all 4718592
+l.batch 4
+l.outputs 173056
+l.delta and l.output size are all 692224
+l.x and l.x_norm size are all 692224
+c 1024
+groups 1
+n 512
+size 1
+l.weights and l.weight_updates size are all 524288
+l.batch 4
+l.outputs 86528
+l.delta and l.output size are all 346112
+l.x and l.x_norm size are all 346112
+c 512
+groups 1
+n 1024
+size 3
+l.weights and l.weight_updates size are all 4718592
+l.batch 4
+l.outputs 173056
+l.delta and l.output size are all 692224
+l.x and l.x_norm size are all 692224
+c 1024
+groups 1
+n 512
+size 1
+l.weights and l.weight_updates size are all 524288
+l.batch 4
+l.outputs 86528
+l.delta and l.output size are all 346112
+l.x and l.x_norm size are all 346112
+c 512
+groups 1
+n 1024
+size 3
+l.weights and l.weight_updates size are all 4718592
+l.batch 4
+l.outputs 173056
+l.delta and l.output size are all 692224
+l.x and l.x_norm size are all 692224
+c 1024
+groups 1
+n 512
+size 1
+l.weights and l.weight_updates size are all 524288
+l.batch 4
+l.outputs 86528
+l.delta and l.output size are all 346112
+l.x and l.x_norm size are all 346112
+c 512
+groups 1
+n 1024
+size 3
+l.weights and l.weight_updates size are all 4718592
+l.batch 4
+l.outputs 173056
+l.delta and l.output size are all 692224
+l.x and l.x_norm size are all 692224
+c 1024
+groups 1
+n 512
+size 1
+l.weights and l.weight_updates size are all 524288
+l.batch 4
+l.outputs 86528
+l.delta and l.output size are all 346112
+l.x and l.x_norm size are all 346112
+c 512
+groups 1
+n 1024
+size 3
+l.weights and l.weight_updates size are all 4718592
+l.batch 4
+l.outputs 173056
+l.delta and l.output size are all 692224
+l.x and l.x_norm size are all 692224
+c 1024
+groups 1
+n 512
+size 1
+l.weights and l.weight_updates size are all 524288
+l.batch 4
+l.outputs 86528
+l.delta and l.output size are all 346112
+l.x and l.x_norm size are all 346112
+c 512
+groups 1
+n 1024
+size 3
+l.weights and l.weight_updates size are all 4718592
+l.batch 4
+l.outputs 173056
+l.delta and l.output size are all 692224
+l.x and l.x_norm size are all 692224
+c 1024
+groups 1
+n 512
+size 1
+l.weights and l.weight_updates size are all 524288
+l.batch 4
+l.outputs 86528
+l.delta and l.output size are all 346112
+l.x and l.x_norm size are all 346112
+c 512
+groups 1
+n 1024
+size 3
+l.weights and l.weight_updates size are all 4718592
+l.batch 4
+l.outputs 173056
+l.delta and l.output size are all 692224
+l.x and l.x_norm size are all 692224
+c 1024
+groups 1
+n 512
+size 1
+l.weights and l.weight_updates size are all 524288
+l.batch 4
+l.outputs 86528
+l.delta and l.output size are all 346112
+l.x and l.x_norm size are all 346112
+c 512
+groups 1
+n 1024
+size 3
+l.weights and l.weight_updates size are all 4718592
+l.batch 4
+l.outputs 173056
+l.delta and l.output size are all 692224
+l.x and l.x_norm size are all 692224
+c 1024
+groups 1
+n 255
+size 1
+l.weights and l.weight_updates size are all 261120
+l.batch 4
+l.outputs 43095
+l.delta and l.output size are all 172380
+c 512
+groups 1
+n 256
+size 1
+l.weights and l.weight_updates size are all 131072
+l.batch 4
+l.outputs 43264
+l.delta and l.output size are all 173056
+l.x and l.x_norm size are all 173056
+c 768
+groups 1
+n 256
+size 1
+l.weights and l.weight_updates size are all 196608
+l.batch 4
+l.outputs 173056
+l.delta and l.output size are all 692224
+l.x and l.x_norm size are all 692224
+c 256
+groups 1
+n 512
+size 3
+l.weights and l.weight_updates size are all 1179648
+l.batch 4
+l.outputs 346112
+l.delta and l.output size are all 1384448
+l.x and l.x_norm size are all 1384448
+c 512
+groups 1
+n 256
+size 1
+l.weights and l.weight_updates size are all 131072
+l.batch 4
+l.outputs 173056
+l.delta and l.output size are all 692224
+l.x and l.x_norm size are all 692224
+c 256
+groups 1
+n 512
+size 3
+l.weights and l.weight_updates size are all 1179648
+l.batch 4
+l.outputs 346112
+l.delta and l.output size are all 1384448
+l.x and l.x_norm size are all 1384448
+c 512
+groups 1
+n 256
+size 1
+l.weights and l.weight_updates size are all 131072
+l.batch 4
+l.outputs 173056
+l.delta and l.output size are all 692224
+l.x and l.x_norm size are all 692224
+c 256
+groups 1
+n 512
+size 3
+l.weights and l.weight_updates size are all 1179648
+l.batch 4
+l.outputs 346112
+l.delta and l.output size are all 1384448
+l.x and l.x_norm size are all 1384448
+c 512
+groups 1
+n 255
+size 1
+l.weights and l.weight_updates size are all 130560
+l.batch 4
+l.outputs 172380
+l.delta and l.output size are all 689520
+c 256
+groups 1
+n 128
+size 1
+l.weights and l.weight_updates size are all 32768
+l.batch 4
+l.outputs 86528
+l.delta and l.output size are all 346112
+l.x and l.x_norm size are all 346112
+c 384
+groups 1
+n 128
+size 1
+l.weights and l.weight_updates size are all 49152
+l.batch 4
+l.outputs 346112
+l.delta and l.output size are all 1384448
+l.x and l.x_norm size are all 1384448
+c 128
+groups 1
+n 256
+size 3
+l.weights and l.weight_updates size are all 294912
+l.batch 4
+l.outputs 692224
+l.delta and l.output size are all 2768896
+l.x and l.x_norm size are all 2768896
+c 256
+groups 1
+n 128
+size 1
+l.weights and l.weight_updates size are all 32768
+l.batch 4
+l.outputs 346112
+l.delta and l.output size are all 1384448
+l.x and l.x_norm size are all 1384448
+c 128
+groups 1
+n 256
+size 3
+l.weights and l.weight_updates size are all 294912
+l.batch 4
+l.outputs 692224
+l.delta and l.output size are all 2768896
+l.x and l.x_norm size are all 2768896
+c 256
+groups 1
+n 128
+size 1
+l.weights and l.weight_updates size are all 32768
+l.batch 4
+l.outputs 346112
+l.delta and l.output size are all 1384448
+l.x and l.x_norm size are all 1384448
+c 128
+groups 1
+n 256
+size 3
+l.weights and l.weight_updates size are all 294912
+l.batch 4
+l.outputs 692224
+l.delta and l.output size are all 2768896
+l.x and l.x_norm size are all 2768896
+c 256
+groups 1
+n 255
+size 1
+l.weights and l.weight_updates size are all 65280
+l.batch 4
+l.outputs 689520
+l.delta and l.output size are all 2758080
+parse_network_cfg finished
+load_weights start darknet53.conv.74

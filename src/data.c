@@ -137,6 +137,7 @@ matrix load_image_augment_paths(char **paths, int n, int min, int max, int size,
 
 box_label *read_boxes(char *filename, int *n)
 {
+		printf("read_boxes %s %d\n",filename,*n);
     FILE *file = fopen(filename, "r");
     if(!file) file_error(filename);
     float x, y, h, w;
@@ -960,12 +961,13 @@ data load_data_detection(int n, char **paths, int m, int w, int h, int boxes, in
     int i;
     data d = {0};
     d.shallow = 0;
-
+		printf("load_data_detection n %d\n",n);
     d.X.rows = n;
     d.X.vals = calloc(d.X.rows, sizeof(float*));
     d.X.cols = h*w*3;
 
     d.y = make_matrix(n, 5*boxes);
+		printf("load_data_detection make_matrix %d\n",n*5*boxes);
     for(i = 0; i < n; ++i){
         image orig = load_image_color(random_paths[i], 0, 0);
         image sized = make_image(w, h, orig.c);
@@ -1015,6 +1017,7 @@ void *load_thread(void *ptr)
     if(a.saturation == 0) a.saturation = 1;
     if(a.aspect == 0) a.aspect = 1;
 
+
     if (a.type == OLD_CLASSIFICATION_DATA){
         *a.d = load_data_old(a.paths, a.n, a.m, a.labels, a.classes, a.w, a.h);
     } else if (a.type == REGRESSION_DATA){
@@ -1061,17 +1064,21 @@ pthread_t load_data_in_thread(load_args args)
 
 void *load_threads(void *ptr)
 {
+		printf("load_thread\n");
     int i;
     load_args args = *(load_args *)ptr;
     if (args.threads == 0) args.threads = 1;
     data *out = args.d;
     int total = args.n;
+		printf("load_thread total=%d\n",total);
     free(ptr);
     data *buffers = calloc(args.threads, sizeof(data));
     pthread_t *threads = calloc(args.threads, sizeof(pthread_t));
     for(i = 0; i < args.threads; ++i){
         args.d = buffers + i;
+				printf("args.n before %d\n",args.n);
         args.n = (i+1) * total/args.threads - i * total/args.threads;
+				printf("args.n after %d\n",args.n);
         threads[i] = load_data_in_thread(args);
     }
     for(i = 0; i < args.threads; ++i){
