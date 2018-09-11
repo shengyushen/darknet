@@ -1,0 +1,7 @@
+#input size	feature size(MB)	feature memory	gflops
+112 	2000   626 
+224 	8000  3000 
+336 	18000	6000
+448 	31000	10000 
+560 	49000	16000 
+672 	70000	23000 
